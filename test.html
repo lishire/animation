@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>JS动画</title>
     <style>
        #content{
            width: 150px;
@@ -30,7 +30,7 @@
             height: 100px;
             background-color: #000;
             text-align: center;
-            line-height: 50px;
+            line-height: 100px;
             cursor:pointer;
             color:white;
         }
@@ -42,7 +42,7 @@
 </head>
 <body>
 <div id="content">
-    <div id="title">点我分享</div>
+    <div id="title">就不出来!</div>
         <ul id="list">
             <li>QQ</li>
             <li>微信</li>
@@ -73,38 +73,49 @@
     var share =getobj("content");
 //    console.log(share)
     share.addEventListener("mouseover",function(){
-        moving();
+        moving(this,10,0);
     },true);
-
+    share.addEventListener("mouseout",function(){
+        moving(this,-10,-150);
+    },true);
     var timer=null;
-    function moving(){
+    function moving(obj,speed,terminal){
 //        clearInterval(timer)
-       clearInterval(timer1);
-       clearInterval(timer);
-        timer=setInterval(function(){
+//       clearInterval(timer1);
+
+       clearInterval(share.timer);
+        obj.timer=null;
+        obj.timer=setInterval(function(){
             var left_val=getstyle(share,"left");
-            if(left_val<0){
-                left_val+=10;
+            if(left_val<terminal){
+                if(left_val<terminal){
+                left_val+=speed;
+                }
+            }
+            else{
+                if(left_val>terminal){
+                    left_val+=speed;
+                }
             }
             share.style.left=left_val+"px";
 //            console.log(qqq);
         },17)
     }
-    share.addEventListener("mouseout",function(){
-        sun();
-    },true);
-    var timer1=null;
-    function sun(){
-        clearInterval(timer);
-        clearInterval(timer1);
-        timer1=setInterval(function(){
-            var left_val=getstyle(share,"left");
-            if(left_val>-150){
-                left_val-=10;
-            }
-            share.style.left=left_val+"px";
-//            console.log(zzz)
-        },17) 
-    }
+//    share.addEventListener("mouseout",function(){
+//        sun();
+//    },true);
+//    var timer1=null;
+//    function sun(){
+//        clearInterval(timer);
+//        clearInterval(timer1);
+//        timer1=setInterval(function(){
+//            var left_val=getstyle(share,"left");
+//            if(left_val>-150){
+//                left_val-=10;
+//            }
+//            share.style.left=left_val+"px";
+////            console.log(zzz)
+//        },17)
+//    }
 </script>
 </html>
